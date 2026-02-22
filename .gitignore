@@ -1,0 +1,9 @@
+#training data
+data/
+
+#vs code
+.vscode/
+
+#enviorment
+.env
+.venv/
