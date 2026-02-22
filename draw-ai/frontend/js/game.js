@@ -1,44 +1,50 @@
-const timer = document.getElementById("timer")
+const timerLabel = document.getElementById("timer");
+const overlay = document.getElementById("round-overlay");
+const wordText = document.getElementById("target-word");
+const scoreLabel = document.getElementById("score-display");
 
-class GameState {
-    constructor(){
-        this.score = 0;
-        this.timeRemaining = 30;
-        this.isDrawing = false;
-        this.isGameOver = false;
-        this.isCorrect = false;
+let currentTarget = "";
+let score = 0;
+let timeRemaining = 20;
+let isGameActive = false;
+let countdown;
 
-        this.guessCooldown = 5;
-        this.guessTimer = 0
-    }
+function nextRound() {
+    isGameActive = false;
+    clearInterval(countdown);
 
-    update(dt) {
-        this.timeRemaining -= dt;
-        if (this.timeRemaining <= 0 || this.isCorrect) {
-            this.isGameOver = true;
-            this.isDrawing = false;
+    currentTarget = categories[Math.floor(Math.random()* categories.length)];
+    wordText.textContent = `Draw: ${currentTarget}`;
+
+    overlay.style.display = "flex";
+    clearCanvas();
+
+    timeRemaining = 20;
+    timerLabel.textContent = `Time: ${timeRemaining}`;
+}
+
+function startRound() {
+    overlay.style.display = "none";
+    isGameActive = true;
+
+    countdown = setInterval(() => {
+        timeRemaining--;
+        timerLabel.textContent = `Time: ${timeRemaining}`;
+
+        if (timeRemaining <= 0) {
+            endRound(false);
         }
+    }, 1000)
+}
+
+function endRound(isSuccess) {
+    clearInterval(countdown);
+
+    if(isSuccess) {
+        score++;
+        scoreLabel.textContent = `Score: ${score}`;
     }
+    nextRound();
 }
 
-const game = new GameState();
-
-let lastTime = 0;
-
-function gameLoop(timestamp) {
-    const dt = (timestamp - lastTime) / 1000;
-    lastTime = timestamp;
-
-    game.update(dt);
-    updateUI();
-
-    if(!game.isGameOver) {
-        requestAnimationFrame(gameLoop);
-    } else {
-        endGame();
-    }
-}
-
-function updateUI() {
-    timer.textContent = Math.ceil(game.timeRemaining);
-}
+window.onload = nextRound;

@@ -7,15 +7,14 @@ const canvasOffsetY = canvas.offsetTop;
 canvas.width = window.innerWidth - canvasOffsetX;
 canvas.height = window.innerHeight - canvasOffsetY;
 
+
+
 let isPainting = false;
 const lineWidth = 10;
 
 const getMousePos = (e) => {
     const rect = canvas.getBoundingClientRect();
-    return {
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top
-    };
+    return { x: e.clientX - rect.left,y: e.clientY - rect.top };
 };
 
 function clearCanvas(){
@@ -23,31 +22,39 @@ function clearCanvas(){
 }
 
 const draw = (e) => {
-    if(!isPainting) return;
-
+    if(!isPainting || !isGameActive) return;
     const pos = getMousePos(e);
-
     ctx.lineWidth = lineWidth;
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
     ctx.strokeStyle = "black";
-
     ctx.lineTo(pos.x, pos.y);
     ctx.stroke();
 };
 
 canvas.addEventListener("mousedown", (e) => {
+    if(!isGameActive) return;
     isPainting = true;
     const pos = getMousePos(e);
     ctx.beginPath();
     ctx.moveTo(pos.x, pos.y);
 });
 
-canvas.addEventListener("mouseup", e => {
+canvas.addEventListener("mousemove", draw);
+
+canvas.addEventListener("mouseup", async () => {
+    isPainting = false;
+    ctx.stroke();
+
+    if(isGameActive) {
+        const result = await getPrediction();
+        if(result && result.prediction.toLowerCase() === currentTarget.toLowerCase()) {
+            endRound(true);
+        }
+    }
+});
+
+canvas.addEventListener("mouseleave", () => {
     isPainting = false;
     ctx.stroke();
 });
-
-canvas.addEventListener("mousedown", draw);
-
-canvas.addEventListener("mousemove", draw);

@@ -7,13 +7,16 @@
     <title>DrawAI</title>
 </head>
 <body>
+    <div id="round-overlay">
+        <h1 id="target-word">Ready?</h1>
+        <button type="button" onclick="startRound()">Start</button>
+    </div>
     <header>
         <div>
-            <button type="button" onclick="getPrediction()">Guess!</button>
             <button type="button" onclick="clearCanvas()">Clear</button>
         </div>
         <div>
-            <p id="timer">timer</p>
+            <p id="timer">Time: 20</p>
         </div>
         <div>
             <p id="aiPrediction">Prediction | Confidence</p>
@@ -22,6 +25,9 @@
     <main>
         <canvas id="myCanvas"></canvas>
     </main>
+
+    <div id="score-display">Score: 0</div>
+
     <script src="js/canvas.js"></script>
     <script src="js/model.js"></script>
     <script src="js/game.js"></script>
