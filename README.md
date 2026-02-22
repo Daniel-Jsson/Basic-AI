@@ -15,16 +15,11 @@ Draw objects on a canvas and let the AI guess what you're drew.
 - Pillow
 - numpy
 
-Install dependencies via
-```bash
-pip install -r requirements.txt
-```
-
 ## Installation
 
 ### Clone the repository:
     
-Open Git Bash and paste the following:
+Open the terminal and paste the following:
 
 ```bash
 git clone https://github.com/Daniel-Jsson/Basic-AI.git
@@ -36,6 +31,23 @@ git clone https://github.com/Daniel-Jsson/Basic-AI.git
 tested on 3.11.8
 
 **Make sure to add Python to PATH when installing**
+
+### Create and activate a virtual enviorment
+
+enter the following into the terminal:
+
+```bash
+python -m venv .venv
+
+.venv\Scripts\activate
+
+```
+
+then Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+
 
 ## Usage
 
