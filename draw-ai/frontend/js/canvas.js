@@ -22,26 +22,6 @@ function clearCanvas(){
     ctx.clearRect(0,0, canvas.width, canvas.height);
 }
 
-async function getPrediction() {
-    const imageData = canvas.toDataURL["image/png"];
-
-    try {
-        const response = await fetch("http://localhost:5000/predict", {
-            method: "POST",
-            headers: {"Context-Type": "application/json"},
-            body: JSON.stringify({image: imageData})
-        });
-
-        const result= await response.json();
-        console.log("Prediction", result);
-        alert(`I am ${Math.round(result.confidence * 100)}% sure that is a ${result.prediction}`)
-
-    } catch (error) {
-        console.log("Error connecting to server:", error);
-        alert("Server Error. check if app.py is running")
-    }
-}
-
 const draw = (e) => {
     if(!isPainting) return;
 

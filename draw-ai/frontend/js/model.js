@@ -1,3 +1,5 @@
+const element = document.getElementById("aiPrediction")
+
 async function getPrediction() {
     const canvas = document.getElementById('myCanvas');
     const imageData = canvas.toDataURL('image/png');
@@ -10,5 +12,5 @@ async function getPrediction() {
 
     const result = await response.json();
     console.log(`AI Confidence: ${Math.round(result.confidence * 100)}% for ${result.prediction}`);
-    alert("Prediction: " + result.prediction);
-}
+    element.textContent = `Prediction: ${result.prediction} | Confidence: ${Math.round(result.confidence * 100)}%`;
+}   
