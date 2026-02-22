@@ -7,3 +7,5 @@ data/
 #enviorment
 .env
 .venv/
+
+debug_output.png

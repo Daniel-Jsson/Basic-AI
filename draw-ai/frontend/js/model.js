@@ -9,6 +9,6 @@ async function getPrediction() {
     });
 
     const result = await response.json();
-    console.log("The model thinks this is a:", result.prediction);
+    console.log(`AI Confidence: ${Math.round(result.confidence * 100)}% for ${result.prediction}`);
     alert("Prediction: " + result.prediction);
 }

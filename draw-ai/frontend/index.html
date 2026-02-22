@@ -6,11 +6,15 @@
     <link rel="stylesheet" href="css/style.css">
     <title>DrawAI</title>
 </head>
-<body onresize="resizeCanvas">
-    <header></header>
+<body>
+    <header>
+            <button type="button" onclick="getPrediction()">Guess!</button>
+            <button type="button" onclick="clearCanvas()">Clear</button>
+    </header>
     <main>
         <canvas id="myCanvas"></canvas>
     </main>
-    <script src="canvas.js"></script>
+    <script src="js/canvas.js"></script>
+    <script src="js/model.js"></script>
 </body>
 </html>
